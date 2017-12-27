@@ -18,8 +18,8 @@ import 'rxjs/add/operator/map';
 })
 export class RequestMedList implements OnInit {
 
-  employees: Employee[] = [];
-  requests: RequestMed[] = []
+  requests: RequestMed[] = [];
+  employee: Employee = new Employee();
 
   constructor(private http: Http) {}
 
@@ -31,14 +31,19 @@ export class RequestMedList implements OnInit {
       .map(res => res.json())
       .subscribe(
         (requests) => {
-          requests.forEach((requestData: Object) => {
+         requests.forEach((requestData: RequestMed) => {
+            console.log(requestData);
+            
+            this.employee.setId(requestData.employee.id);
+            this.employee.setFirstName(requestData.employee.firstName);
+            this.employee.setLastName(requestData.employee.lastName);
+            this.employee.setMarketCircleId(requestData.employee.marketCircleId);
+            this.employee.setCircleName(requestData.employee.circleName);
+            
             var request: RequestMed = new RequestMed();
             request.setRequestId(requestData.requestId);
             request.setStatus(requestData.status);
-            request.setStatusName(requestData.statusName);
-            var employee: Employee = new Employee(requestData.employee);
-            request.setEmployee(employee);
-            this.employees.push(employee);
+            request.setStatusName(requestData.statusName);           
 
             var symptom: Symptom = new Symptom(requestData.symptom);
             request.setSymptom(symptom);
@@ -48,7 +53,7 @@ export class RequestMedList implements OnInit {
             this.requests.push(request);
             console.log(request);
           });
-          //console.log(this.users);
+          this.employee.setRequestMeds(requests);
         }
       );
   }
@@ -65,23 +70,6 @@ requestOptions = {
     headers: new Headers(this.headerDict)
 };
 
-  deleteModel(employee: Employee) {
-    if (confirm('Are you sure you want to delete employee ' + employee.id)) {
-      this.http.delete('/employees/' + employee.id)
-        .subscribe(
-          (response) => {
-            if (response.status === 204) {
-              this.employees.forEach((e: Employee, i: number) => {
-                if (e.id === employee.id) {
-                  this.employees.splice(i, 1);
-                }
-              });
-              console.log(this.employees);
-            }
-          }
-        );
-    }
-  }
 
 
 }

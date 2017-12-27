@@ -24,29 +24,7 @@ export class EmployeeList implements OnInit {
 
   ngOnInit() {
     console.log('start of initjoed');
-    var url = '/requestmedicine/rest/requestMed/viewRequestList/1';
-    console.log('dddd');
-    this.http.get(url, this.requestOptions)
-      .map(res => res.json())
-      .subscribe(
-        (requests) => {
-          requests.forEach((requestData: Object) => {
-            var request: RequestMed = new RequestMed();
-            request.setRequestId(requestData.requestId);
-            request.setStatus(requestData.status);
-            request.setStatusName(requestData.statusName);
-            var employee: Employee = new Employee(requestData.employee);
-            request.setEmployee(employee);
-            this.employees.push(employee);
-
-            var medicine: Medicine = new Medicine(requestData.medicine);
-            request.setMedicine(medicine);
-            this.requests.push(request);
-            console.log(request);
-          });
-          //console.log(this.users);
-        }
-      );
+   
   }
 
 headerDict = {

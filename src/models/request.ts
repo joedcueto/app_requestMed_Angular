@@ -14,6 +14,8 @@ export class RequestMed {
     
   }
 
+  //we need to update the API such that it will return a list of employee object with request as part of its properties
+
   setEmployee(employee : Employee){
   	this.employee = employee;
   }
