@@ -1,0 +1,24 @@
+<h1>Employees</h1>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Market Circle</th>      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!employees.length">
+      <td colspan="5">Loading...</td>
+    </tr>
+    <tr  *ngFor="#employee of employees">
+      <td>{{employee.id}}</td>
+     <td>{{employee.firstName}}</td>
+      <td>{{employee.lastName}}</td>
+      <td>{{employee.circleName}}</td>     
+    </tr>
+  </tbody>
+</table>

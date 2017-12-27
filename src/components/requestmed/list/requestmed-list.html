@@ -1,0 +1,26 @@
+<h1>Requests</h1>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>REQUEST ID</th>
+      <th>EMPLOYEE NAME</th>
+      <th>MARKET CIRCLE</th>  
+      <th>MEDICINE</th>
+      <th>SYMPTOM</th>      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!requests.length">
+      <td colspan="5">Loading...</td>
+    </tr>
+    <tr  *ngFor="#request of requests">
+      <td>{{request.requestId}}</td>
+     <td>{{request.employee.firstName}} {{request.employee.lastName}}</td>
+      <td>{{request.employee.circleName}}</td>    
+      <td>{{request.medicine.medicineName}}</td>
+      <td>{{request.symptom.symptomName}}</td>       
+    </tr>
+  </tbody>
+</table>
