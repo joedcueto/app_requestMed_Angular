@@ -25,37 +25,36 @@ export class RequestMedList implements OnInit {
 
   ngOnInit() {
     console.log('start of initjoed');
-    var url = '/requestMed/viewRequestList/1';
+    var url = '/requestMed/viewRequestListByEmpId';
     console.log('dddd');
-    this.http.get(url, this.requestOptions)
+    var employeeReq: Employee = new Employee();
+    employeeReq.setId(1);
+    this.http.post(url, JSON.stringify(employeeReq), this.requestOptions)
       .map(res => res.json())
       .subscribe(
-        (requests) => {
-         requests.forEach((requestData: RequestMed) => {
-            console.log(requestData);
-            
-            this.employee.setId(requestData.employee.id);
-            this.employee.setFirstName(requestData.employee.firstName);
-            this.employee.setLastName(requestData.employee.lastName);
-            this.employee.setMarketCircleId(requestData.employee.marketCircleId);
-            this.employee.setCircleName(requestData.employee.circleName);
-            
-            var request: RequestMed = new RequestMed();
-            request.setRequestId(requestData.requestId);
-            request.setStatus(requestData.status);
-            request.setStatusName(requestData.statusName);           
+        (emp) => {
+            this.employee.setId(emp.id);
+            this.employee.setFirstName(emp.firstName);
+            this.employee.setLastName(emp.lastName);
+            this.employee.setMarketCircleId(emp.marketCircleId);
+            this.employee.setCircleName(emp.circleName);
+            var objects : RequestMed[] = emp.requestMeds;
+            for (var i=0; i<objects.length; i++){
+                var request: RequestMed = new RequestMed();
+                request.setRequestId(objects[i].requestId);
+                request.setStatus(objects[i].status);
+                request.setStatusName(objects[i].statusName);           
 
-            var symptom: Symptom = new Symptom(requestData.symptom);
-            request.setSymptom(symptom);
+                var symptom: Symptom = new Symptom(objects[i].symptom);
+                request.setSymptom(symptom);
 
-            var medicine: Medicine = new Medicine(requestData.medicine);
-            request.setMedicine(medicine);
-            this.requests.push(request);
-            console.log(request);
-          });
-          this.employee.setRequestMeds(requests);
-        }
-      );
+                var medicine: Medicine = new Medicine(objects[i].medicine);
+                request.setMedicine(medicine);
+                this.requests.push(request);
+            }            
+
+            this.employee.setRequestMeds(this.requests);
+        });
   }
 
 headerDict = {
