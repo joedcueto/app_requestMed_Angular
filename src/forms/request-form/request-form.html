@@ -1,0 +1,23 @@
+<form [ngFormModel]="requestForm" novalidate (ngSubmit)="onSubmit()" class="well">
+
+  <div class="form-group" [ngClass]="{'has-danger': !requestForm.controls.medicine.valid}" >
+    <label class="form-control-label" for="medicine_field">Medicine</label>
+    <select formControlName="medicine_dropdown" id="medicine">
+      <option *ngFor="#medicine of medicines"
+         [value]="medicine.medicineId">
+          {{medicine.medicineName}}
+      </option>
+    </select>
+  </div>  
+
+  <div class="form-group" [ngClass]="{'has-danger': !requestForm.controls.medicine.valid}" >
+    <label class="form-control-label" for="symptom_field">Symptom</label>
+     <select formControlName="medicine_dropdown" id="medicine">
+      <option *ngFor="#symptom of symptoms"
+         [value]="symptom.symptomId">
+          {{symptom.symptomName}}
+      </option>
+    </select>
+  </div>  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

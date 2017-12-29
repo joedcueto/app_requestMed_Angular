@@ -13,7 +13,13 @@
     <tr>
       <th>REQUEST ID</th>
      <th>MEDICINE</th>
-      <th>SYMPTOM</th>      
+      <th>SYMPTOM</th>     
+      <th>STATUS</th> 
+       <th>
+        <a href="" [routerLink]="['/RequestMedCreate']">
+          <i class="fa fa-plus"></i>
+        </a>
+      </th>   
     </tr>
   </thead>
   <tbody>
@@ -24,6 +30,8 @@
       <td>{{request.requestId}}</td>
     <td>{{request.medicine.medicineName}}</td>
       <td>{{request.symptom.symptomName}}</td>       
+      <td>{{request.status.statusName}}</td>
+      <td></td>   
     </tr>
   </tbody>
 </table>

@@ -1,12 +1,13 @@
 import {Employee} from './Employee';
 import {Medicine} from './Medicine';
 import {Symptom} from './Symptom';
+import {Status} from './Status';
 
 export class RequestMed {
   requestId:number;
   employee:Employee;
   medicine:Medicine;
-  status:number;
+  status:Status;
   statusName:string;
   symptom:Symptom;
 
@@ -33,12 +34,8 @@ export class RequestMed {
   	this.requestId = requestId;
   }
 
-  setStatus(status: number){
+  setStatus(status: Status){
   	this.status = status;
-  }
-
-  setStatusName(statusName: string){
-  	this.statusName = statusName;
-  }
+  }  
 
 }

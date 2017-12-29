@@ -5,6 +5,7 @@ import {Employee} from '../../../models/employee';
 import {RequestMed} from '../../../models/request';
 import {Medicine} from '../../../models/medicine';
 import {Symptom} from '../../../models/symptom';
+import {Status} from '../../../models/status';
 import 'rxjs/add/operator/map';
 
 
@@ -42,8 +43,10 @@ export class RequestMedList implements OnInit {
             for (var i=0; i<objects.length; i++){
                 var request: RequestMed = new RequestMed();
                 request.setRequestId(objects[i].requestId);
-                request.setStatus(objects[i].status);
-                request.setStatusName(objects[i].statusName);           
+
+                var status: Status = new Status(objects[i].status);
+                request.setStatus(status);
+                          
 
                 var symptom: Symptom = new Symptom(objects[i].symptom);
                 request.setSymptom(symptom);
@@ -54,6 +57,7 @@ export class RequestMedList implements OnInit {
             }            
 
             this.employee.setRequestMeds(this.requests);
+            console.log(this.employee);
         });
   }
 
